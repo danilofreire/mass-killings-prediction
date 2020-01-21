@@ -8,6 +8,7 @@
 \usepackage{libertine}
 \usepackage[libertine]{newtxmath}
 \usepackage{lstfiracode}
+%\usepackage[scale=.95]{inconsolata}
 \usepackage[authoryear]{natbib}
 \usepackage{babelbib}
 \usepackage{booktabs, makecell, longtable}
@@ -64,9 +65,10 @@
 \renewcommand{\backreflastsep}{ and~}
 	
 \hypersetup{
-  pdftitle={Evaluating Empirical Explanations for State-Sponsored Violence with Ensemble Models},
+  pdftitle={What Drives State-Sponsored Violence?: Evidence from
+  Extreme Bounds Analysis and Ensemble Learning Models},
   pdfauthor={Danilo Freire and Gary Uzonyi},
-  pdfkeywords={ensemble models, genocide, mass killings, random forest, state-sponsored violence},
+  pdfkeywords={genocide, mass killings, random forest, state-sponsored violence},
   pdfborder={0 0 0},
   breaklinks=true,
   linkcolor=Mahogany,
@@ -74,46 +76,50 @@
   urlcolor=darkblue,
   colorlinks=true}
 
-\title{Evaluating Empirical Explanations for State-Sponsored Violence with Ensemble Models\thanks{We thank Toke Aidt, Lucas Mingardi, Robert McDonnell, Umberto Mignozzetti, Catarina Roman, David Skarbek, and Graham Denyer Willis for their helpful suggestions and comments. All replication materials are available at \href{https://github.com/danilofreire/mass-killings-prediction}{\texttt{https://github.com/danilofreire/mass-killings-prediction}}.}}
+\title{What Drives State-Sponsored Violence?: Evidence from Extreme Bounds
+Analysis and Ensemble Learning Models\thanks{We thank Toke Aidt, Robert
+McDonnell, Umberto Mignozzetti, David Skarbek, and Graham Denyer Willis for
+their helpful suggestions and comments. All replication materials are available
+at
+\href{https://github.com/danilofreire/mass-killings-prediction}{\texttt{https://github.com/danilofreire/mass-killings-prediction}}.}}
 
-\author{Danilo Freire\thanks{Postdoctoral Research Associate, The Political Theory Project, Brown University, 8 Fones Alley, Providence, RI 02912, \href{mailto:danilofreire@gmail.com}{\texttt{danilofreire@gmail.com}}, \href{http://danilofreire.github.io}{\texttt{http://danilofreire.github.io}}. Corresponding author.} \and Gary Uzonyi\thanks{Assistant Professor, Department of Political Science; Research Fellow, Howard H. Baker Jr. Center for Public Policy, University of Tennessee, 1640 Cumberland Ave, Knoxville, TN 37996, \href{mailto:guzonyi@utk.edu}{\texttt{guzonyi@utk.edu}}, \href{https://sites.google.com/site/uzonyigary/}{\texttt{https://sites.google.com/site/uzonyigary}}.}}
+\author{Danilo Freire\thanks{Postdoctoral Research Associate, The Political
+	Theory Project, Brown University, 8 Fones Alley, Providence, RI 02912,
+	\href{mailto:danilofreire@gmail.com}{\texttt{danilofreire@gmail.com}},
+	\href{http://danilofreire.github.io}{\texttt{http://danilofreire.github.io}}.
+	Corresponding author.} 
+	\and 
+	Gary Uzonyi\thanks{Assistant Professor,
+	Department of Political Science; Research Fellow, Howard H. Baker Jr. Center
+	for Public Policy, University of Tennessee, 1640 Cumberland Ave, Knoxville,
+	TN 37996, \href{mailto:guzonyi@utk.edu}{\texttt{guzonyi@utk.edu}},
+\href{https://sites.google.com/site/uzonyigary/}{\texttt{https://sites.google.com/site/uzonyigary}}.}}
 
 \date{\today}
 
 \begin{document}
 \maketitle
-
+	
 \begin{abstract}
-\noindent 
-The literature on state-sponsored violence has grown significantly over the last
-decades. Although scholars have suggested a number of potential correlates of
-mass killings, it is unclear whether those factors increase our ability to
-forecast future events. Here we employ ensemble learning algorithms to test the
-predictive power of 40 variables on a sample of 177 countries from 1945 to 2013.
-We find that most 
-%2013. The results help clear the brush around mass killings, as few variables in
-%this literature are robust determinants of atrocity. However, support for an
-%opportunity logic persists as greater constraints on a government limit its
-%ability to employ barbarous tactics. It appears that the Conflict Trap applies
-%to government atrocity. Atrocity breeds atrocity, while wealthy stable
-%democracies tend to avoid episodes of mass killing.
-
-\vspace{.75cm}
-\noindent
-\textbf{Keywords}: ensemble models, genocide, mass killings, random forests, state-sponsored violence
-
-\vspace{.25cm}
-\noindent
-\textbf{JEL Classification}: C52, C53, D74, H56, K10
+ \noindent
+The literature on state-sponsored violence has grown significantly over the last decades. Although scholars have suggested a number of potential correlates of mass killings, it remains unclear whether the estimates are robust to different model specifications, or which variables accurately predict the onset of large-scale violence. We employ extreme bounds analysis and random forests to test the sensitivity of 40 variables on a sample of 177 countries from 1945 to 2013. The results help clear the brush around mass killings, as few variables in this literature are robust determinants of atrocity. However, support for an opportunity logic persists as greater constraints on a government limit its ability to employ barbarous tactics. It appears that the Conflict Trap applies to government atrocity. Atrocity breeds atrocity, while wealthy stable democracies tend to avoid episodes of mass killing.
+	
+ \vspace{.75cm}
+ \noindent
+ \textbf{Keywords}: extreme bounds analysis, genocide, mass killings, random forests, state-sponsored violence
+	
+ \vspace{.25cm}
+ \noindent
+ \textbf{JEL Classification}: C52, C53, D74, H56, K10
 \end{abstract}
-
+	
 \newpage
-
+	
 \section{Introduction}
 \label{sec:intro}
-
+	
 \doublespacing
-
+	
 Since the end of World War II, mass killings, genocides, and politicides have claimed over 34.5 million lives \citep{marshall2017pitf}.\footnote{Genocide and politicide are the attempted intentional destruction of communal or political groups, respectively \citep[see][]{harff1988toward}. Mass killing includes these atrocities, as well as attacks against civilians that result in at least 1,000 deaths but are not intended to destroy a particular group \citep[see][]{ulfelder2008assessing}. While some conflate the logic of these types of atrocities \citep[e.g.,][]{rummel1995democracy, valentino2004draining}, others claim genocide and politicide follow a different logic from other forms of government violence \citep{kalyvas2006logic,stanton2015regulating}. For discussion on these important differences in conceptualisation see \citep[]{straus2007second, finkel2012macro}} The international community has responded with an effort to prevent further state-sponsored mass murder by strengthening laws against war crimes, genocide, and crimes against humanity. Furthermore, the United Nations established a Special Adviser on the Prevention of Genocide and recognised its members' responsibility to protect civilian populations within and outside their own borders. Yet, such atrocities still occur. Recently, President al-Assad of Syria has massacred tens of thousands of civilians during the Syrian Civil War \citep{goldman2017nyt}. Similarly, South Sudan's President Kiir is actively starving and killing civilians from dissident and rival tribes \citep{nichols2017reuters}. While there is some evidence that such atrocities may be declining since the Cold War \citep{valentino2014we}, the international community has been far from successful in realising slogans like ``Never Again'' and ``Not on My Watch'' \citep{cheadle2007not}.
 	
 Ultimately, effective prevention requires us to understand why these atrocities occur. In this vein, the academic community has laboured tremendously to establish evidence-based theories as to why governments engage in brutality against their civilian populations. Indeed, since 1995, there have been over 45 quantitative political science articles focused on explaining government-sponsored killing of civilians. Overall, the mass violence literature agrees that government atrocity follows an opportunity logic: as threat increases, so does the likelihood of atrocity, if the costs to such violence are not prohibitive. However, there is little consensus on what factors influence the level of threat or costs a regime faces. Part of the reason for this uncertainty is that scholars use very different model specifications when testing their arguments, thus small changes in model parameters could influence the robustness of empirical results and the inferences we draw from these findings.
@@ -212,12 +218,12 @@ Overall, the EBA indicates two patterns in answer to our first question on the c
 
 Figure \ref{fig:drfuv} presents the ten most important predictors of state-sponsored violence in our random forest models. Overall, the machine learning estimations have a good fit, with an AUC of about 0.83 in the validation sample. The algorithm confirms some of the main findings of EBA, yet they also show some interesting patterns. Only democracy and state capacity appear to be robust explanators of mass killing in both EBA and random forest models. These patterns further support the refrain that stable states tend to stay stable states. 
 
-%\begin{figure}[ht]
-%    \centering
-%    \includegraphics[width=.8\textwidth, height=8.25cm]{images/rf-mk.pdf}
-%    \caption{Distributed Random Forest -- Variable Importance (Scaled)}
-%    \label{fig:drfuv}
-%\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.8\textwidth, height=8.25cm]{images/rf-mk.pdf}
+    \caption{Distributed Random Forest -- Variable Importance (Scaled)}
+    \label{fig:drfuv}
+\end{figure}
 	
 Interestingly, several variables that are not robust explanators of mass killing in the EBA, have large importance in the machine learning estimates. Variables related to characteristics of the military forces are a good examples. As we see below, parametrisation and interactions likely account for this difference. The linear model imposes a parametric structure to the covariate, and the relationship between an independent variable and the response may be a nonlinear one. Also, variables can be relevant predictors only when in interaction with each other. In both cases, those relationships will be captured in the machine learning estimations but not in the extreme bounds analysis. 
 
@@ -225,12 +231,12 @@ Interestingly, several variables that are not robust explanators of mass killing
 
 Figure \ref{fig:drfdpp} displays the partial dependence plots for the ten variables that the distributed random forests highlight as the most important explanators of mass killing onset. These graphs are akin to marginal effect plots in correlation models and help clarify the directional effects of these variables over their entire range. For example, we are able to see that the effects of Years since Last Mass Killings and Polity IV are highly nonlinear, or that Log GDP per capita does not decrease the likelihood of mass killings after it reaches a value of 10.
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth, height=8cm]{images/rf-mk-pd.pdf}
-%    \caption{Distributed Random Forest -- Partial Dependence Plots}
-%    \label{fig:drfdpp}
-%\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=8cm]{images/rf-mk-pd.pdf}
+    \caption{Distributed Random Forest -- Partial Dependence Plots}
+    \label{fig:drfdpp}
+\end{figure}
 
 % One paragraph on the results
 
@@ -268,28 +274,28 @@ Figures \ref{fig:drfdpp2}--\ref{fig:drfdpp4} display the partial dependence plot
 
 \vspace{1cm}
 	
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth, height=8cm]{images/rf-ucdp-pd.pdf}
-%    \caption{Partial Dependence Plots -- Mass Killings during Civil Wars (UCDP Data)}
-%    \label{fig:drfdpp2}
-%\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=8cm]{images/rf-ucdp-pd.pdf}
+    \caption{Partial Dependence Plots -- Mass Killings during Civil Wars (UCDP Data)}
+    \label{fig:drfdpp2}
+\end{figure}
 	
-%\begin{figure}[H]
-%    \begin{center}
-%    \includegraphics[width=\textwidth, height=8cm]{images/rf-cow-pd.pdf}
-%    \caption{Partial Dependence Plots -- Mass Killings during Civil Wars (COW Data)}
-%    \label{fig:drfdpp3}
-%    \end{center}
-%\end{figure}	
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\textwidth, height=8cm]{images/rf-cow-pd.pdf}
+    \caption{Partial Dependence Plots -- Mass Killings during Civil Wars (COW Data)}
+    \label{fig:drfdpp3}
+    \end{center}
+\end{figure}	
 	
-%\begin{figure}[H]
-%    \begin{center}
-%    \includegraphics[width=\textwidth, height=8cm]{images/rf-cow-pd.pdf}
-%    \caption{Partial Dependence Plots -- Mass Killings during Civil Wars (Cederman et al. Data)}
-%    \label{fig:drfdpp4}
-%    \end{center}
-%\end{figure}
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\textwidth, height=8cm]{images/rf-cow-pd.pdf}
+    \caption{Partial Dependence Plots -- Mass Killings during Civil Wars (Cederman et al. Data)}
+    \label{fig:drfdpp4}
+    \end{center}
+\end{figure}
 	
 To answer Question 3,  we estimate the same regressions using Harff's (\citeyear{harff2003no}) indicator of genocide and politicide. We find that no variable appears significant in our EBA models for genocide or politicide onset in the full data set. When we limit our sample to civil war years, the Post-Cold War period is negatively correlated with the outcome when using the Correlates of War data set. Excluded population has a negative sign in more than 90\% of the models using both Correlates of War's and Cederman et al's (\citeyear{cederman2010ethnic}) indicators of conflict. Displaced population also has a negative effect in the Correlates of War data set. During ethnic conflicts, our dummy variable for political assassinations has a negative impact on the onset of genocides. Overall, from these EBA analyses, we conclude then that the significant covariates of genocide and politicide onset differ significantly from those of more general forms of government mass violence. Though, the opportunity story still receives some limited support in these models. However, the machine learning models using Harff's genocide and politicide data are comparable to the ones we present above, with a similar set of variables appearing in the random forest estimations. These results once more highlight that while the mass killing literature struggles to identify correlates of atrocity that are robust across model specification, scholars have done a much better job at identifying variables that help predict both the onset of genocide/politicide and mass killings, more broadly.
 	
@@ -314,7 +320,8 @@ Yet we see this diversity of outcomes under a positive light. Our results sugges
 In terms of practical implications, the results indicate that democratisation and pro-growth economic policies are the most efficient ways to prevent mass killings. The international community can therefore play a role in deterring leaders from using force against their own population, either by offering support for domestic opposition groups, intervening, or by fostering economic development. Although costly in the short run, and sometimes violent during the transition, these measures would substantially decrease the likelihood of state violence by breaking the ``conflict trap'' in which past conflicts create the condition for new ones \citep{collier2003breaking}.
 
 \newpage
-
-\bibliography{references.bib}
+	
+\bibliography{references}
 \bibliographystyle{apalike}
 \end{document}
+
