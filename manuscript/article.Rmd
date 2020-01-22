@@ -5,7 +5,7 @@ author:
   - Danilo Freire[^danilo]
   - Gary Uzonyi[^gary]
 date: \today
-thanks: "We thank Toke Aidt, Lucas Mingardi, Robert McDonnell, Umberto Mignozzetti, Catarina Roman, David Skarbek, and Graham Denyer Willis for their helpful suggestions and comments. All replication materials are available at <https://github.com/danilofreire/mass-killings-prediction>."
+thanks: "We thank Toke Aidt, Giovana França, Lucas Mingardi, Robert McDonnell, Umberto Mignozzetti, Catarina Roman, David Skarbek, and Graham Denyer Willis for their helpful suggestions and comments. All replication materials are available at <https://github.com/danilofreire/mass-killings-prediction>."
 abstract: "The literature on state-sponsored violence has grown significantly over the last decades. Although scholars have suggested a number of potential correlates of mass killings, it is unclear whether those factors increase our ability to forecast state-led violence. Here we employ ensemble learning algorithms to test the predictive performance of 40 variables on a sample of 177 countries from 1945 to 2013. We find that most variables fail to improve out-of-sample predictive power (*mention opportunity logic*). We also find high-order interactions between the covariates, which the existing literature generally does not account for. We argue that empirical studies on mass atrocities should adopt more flexible modelling techniques and use predictive accuracy to validate theories and inform public policy decisions."
 abstractspacing: double
 keywords: ensemble models, genocide, mass killings, random forests, state-sponsored violence
@@ -59,72 +59,77 @@ Cumberland Ave, Knoxville, TN 37996,
 Since the end of World War II, mass killings, genocides, and politicides have
 claimed over 34.5 million lives [@marshall2017pitf].[^definition]
 The international community has responded with an effort to prevent further
-state-sponsored mass murder by strengthening laws against war crimes, genocide,
-and crimes against humanity. Furthermore, the United Nations established a
-Special Adviser on the Prevention of Genocide and recognised its members'
-responsibility to protect civilian populations within and outside their own
-borders. Yet, such atrocities still occur. Recently, President al-Assad of
-Syria has massacred tens of thousands of civilians during the Syrian Civil War
-[@goldman2017nyt]. Similarly, South Sudan's President Kiir is actively starving
-and killing civilians from dissident and rival tribes [@nichols2017reuters].
-While there is some evidence that such atrocities may be declining since the
-Cold War [@valentino2014we], the international community has been far from
-successful in realising slogans like "Never Again" and "Not on My Watch"
-[@cheadle2007not].
+state-sponsored mass murder by strengthening laws against war crimes and crimes
+against humanity. Furthermore, the United Nations established a Special Adviser
+on the Prevention of Genocide and recognised its members' responsibility to
+protect civilian populations within and outside their own borders. Yet, such
+atrocities still occur. Recently, President al-Assad of Syria has massacred
+tens of thousands of civilians during the Syrian Civil War [@goldman2017nyt].
+Similarly, South Sudan's President Kiir is actively starving and killing
+civilians from dissident and rival tribes [@nichols2017reuters]. While there is
+some evidence that such atrocities may be declining since the Cold War
+[@valentino2014we], the international community has been far from successful in
+realising slogans like "Never Again" and "Not on My Watch" [@cheadle2007not].
 
 [^definition]: Genocide and politicide are the attempted intentional
 destruction of communal or political groups, respectively [see
 @harff1988toward]. Mass killing includes these atrocities, as well as attacks
 against civilians that result in at least 1,000 deaths but are not intended to
 destroy a particular group [see @ulfelder2008assessing]. While some conflate
-the logic of these types of atrocities [e.g., @rummel1995democracy;
-@valentino2004draining], others claim genocide and politicide follow a
-different logic from other forms of government violence [@kalyvas2006logic;
-@stanton2015regulating]. For discussion on these important differences in
-conceptualisation see @straus2007second and @finkel2012macro.
+these types of atrocities [e.g., @rummel1995democracy; @valentino2004draining],
+others claim genocide and politicide follow a different logic from other forms
+of government violence [@kalyvas2006logic; @stanton2015regulating]. For
+discussion on these important differences in conceptualisation see
+@straus2007second and @finkel2012macro.
 
-Ultimately, effective prevention requires us to understand why mass killings
-occur. In this vein, the academic community suggests a myriad of factors that
-correlate with government atrocity, from 
+Ultimately, effective prevention requires us to infer when mass killings are
+likely to occur. In this vein, the academic community suggests a myriad of
+factors that correlate with government brutality, such as population dynamics,
+military spending, trade indicators, and regime characteristics [e.g.,
+@colaresi2008kill; @eck2007one; @harff2003no; @krain1997state]. But despite the
+rapid growth of the literature on mass atrocities, existing theories have not
+been followed by systematic evaluations of their relative predictive
+performance. With few notable exceptions, such as @ulfelder2008assessing and
+@ulfelder2012forecasting, out-of-sample testing of mass killings theories
+remains scarce.[^ewp] Prediction tests are key to adjudicate between rival
+explanations and direct academic efforts towards more promising areas of
+research [@ward2010perils; @ward2016can]. Moreover, if the predictions the
+theories generate are unable to explain future events, current findings offer
+little guidance to policy-makers. In this regard, identifying robust predictors
+of mass killings improves the accuracy of early warning systems, which in turn
+leads to more effective genocide-prevention strategies.
 
-
-Scholars agree that government atrocity follows an opportunity logic: as
-civilian threats against state leaders increase, so does the likelihood of
-atrocity, if the costs to such violence are not prohibitive. However, the mass
-violence literature points out a myriad of factors that correlate with 
-
-In this vein, the academic community offers a myriad of explanations as to why
-governments engage in brutality against civilians. 
-
-Overall, the mass violence literature agrees that government atrocity follows
-an opportunity logic: as civilian threats against state leaders increase, so
-does the likelihood of atrocity, if the costs to such violence are not
-prohibitive. 
-
-But despite the recent growth of the literature on mass atrocities, existing
-theories have not been followed by systematic evaluations of their relative
-performance. Moreover, if the predictions the theories generate are unable to
-explain future events, current findings offer little guidance to practitioners
-and policy-makers. Identifying robust predictors of mass killings improves the
-accuracy of early warning systems, which in turn leads to more effective
-genocide-prevention strategies.
+[^ewp]: The Early Warning Project (<https://earlywarningproject.ushmm.org>)
+provides a noteworthy attempt to identify countries at risk of genocide. The
+Project deserves our highest praise and our paper partly overlaps with their
+efforts. However, their forecasts do not present estimates for variable
+importance nor partial dependence plots for the most relevant predictors of
+genocide. We build on their findings and not only provide our own out-of-sample
+forecasts, which can be compared to theirs, but we also assess the relative
+impact of the covariates suggested by the specialised literature. 
 
 In this paper, we employ random forests, a machine learning algorithm, to test
-the predictive ability of 40 variables identified as significant determinants
-of mass killings. Although a small group of variables increase the predictive
-accuracy of the models, most of them do not perform well in out-of-sample
-forecasts. We find that economic variables are the most significant predictors
-of state-sponsored violence, while political and demographic factors fare
-poorly in our models (_rewrite_). When we assess the marginal effects of the
-predictors, we also find that they are non-linear, showing high-order
-interactions and complex prediction patterns. Our results indicate that the
-literature on mass atrocities would benefit from focusing on a particular set
-of structural factors and adopting more flexible modelling techniques.
+the predictive ability of 40 variables seen as strong determinants of mass
+killings. Although a small group of variables does increase the predictive
+accuracy of our models, most of the factors do not perform well in
+out-of-sample forecasts. We find that economic variables are the most
+significant predictors of state-sponsored violence, while political and
+demographic factors fare poorly in our models. When we assess the marginal
+effects of the predictors, we also find that they are mostly non-linear,
+showing high-order interactions and complex prediction patterns. Our results
+indicate that the literature on mass atrocities would benefit from focusing on
+a particular set of structural factors and adopting more flexible modelling
+techniques.
 
 We first present a brief overview of the recent scholarship on mass killings
-and discuss its main findings. We then  
+and discuss its main empirical findings. We then explain how the random forest
+algorithm allows us to accurately evaluate the predictive power of the
+determinants of mass killings indicated by the literature. We proceed to a
+discussion of our results and conclude with suggestions for new avenues of
+research.
 
-
+# An Overview of the Correlates of Mass Killings 
+\label{sec:literature}
 
 
 \newpage
