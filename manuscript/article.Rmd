@@ -93,16 +93,16 @@ performance. With few notable exceptions, such as @ulfelder2008assessing and
 @ulfelder2012forecasting, out-of-sample testing of mass killings theories
 remains scarce.[^ewp] Prediction tests are key to adjudicate between rival
 explanations, which helps direct academic efforts towards more promising areas
-of research [@ward2010perils; @ward2016can]. Moreover, if the predictions the
-theories generate are unable to explain future events, current findings offer
-little guidance to policy-makers. In this regard, identifying robust predictors
-of mass killings improves the accuracy of early warning systems, which in turn
-leads to more effective genocide-prevention strategies.
+of research [@ward2010perils; @ward2016can]. Moreover, if theoretical
+predictions  are unable to explain future events, current findings offer little
+guidance to policy-makers. In this regard, identifying robust predictors of
+mass killings is essential to improve the accuracy of early warning systems and
+increase the reliability of genocide-prevention strategies.
 
 [^ewp]: The Early Warning Project (<https://earlywarningproject.ushmm.org>)
 provides a noteworthy attempt to identify countries at risk of genocide. The
-Project deserves our highest praise and our paper partially overlaps with their
-efforts. However, their forecasts do not present estimates for variable
+Project deserves our highest praise and this paper partially overlaps with
+their work. However, their forecasts do not present estimates for variable
 importance nor partial dependence plots for the most relevant predictors of
 genocide. We build on their findings and not only provide our own out-of-sample
 forecasts, which can be compared to theirs, but we also assess the relative
@@ -163,18 +163,17 @@ class will be employed. The simple procedure of leaving out some data points
 and growing separate trees with a random subset of covariates is sufficient to
 eliminate the risk of overfitting \citep[9-10]{jones2015exploratory}.
 
-Random forest has many desirable properties, such as ``highly accurate
+Random forest has many desirable properties, such as "highly accurate
 predictions, robustness to noise and outliers, internally unbiased estimate of
 the generalisation error, efficient computation, and the ability to handle
-large dimensions and many predictors'' \citep[7]{muchlinski2015comparing}.
-Thus, random forest allows the researcher to estimate very flexible models with
+large dimensions and many predictors" \citep[7]{muchlinski2015comparing}. Thus,
+random forest allows the researcher to estimate very flexible models with
 minimal assumptions. Unlike parametric methods such as ordinary least squares
 or logistic regressions, the analyst does not have to impose any distributional
 form to the data-generating process. As a result, random forest is able to
 effectively uncover complex, nonlinear interaction effects in the data without
 prespecification \citep{jones2015exploratory,jones2018there}.
 
-I
 
 
 
